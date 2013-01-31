@@ -1,0 +1,25 @@
+<h1><%= @band.name %></h1>
+<h2>Members</h2>
+  <ul>
+    <% @band.artists.each do |artist_id| %>
+      <li>
+        <%= Artist.find(artist_id).name %>
+      </li>
+    <% end %>
+  </ul>
+<h2>Albums</h2>
+  <ul>
+    <% @band.albums.each do |album| %>
+      <li>
+        <%= album.name %>
+        <ol>
+          <% album.recordings.each do |recording| %>
+            <li>
+              <%= Song.find(recording.song_id).name %>
+            </li>
+          <% end %>
+        </ol>
+      </li>
+    <% end %>
+  </ul>
+<%= link_to "Edit", edit_band_path(@band) %>

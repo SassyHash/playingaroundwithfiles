@@ -1,0 +1,32 @@
+<h1>Edit <%= @band.name %></h1>
+<%= form_tag("/bands/#{@band.id}", :method => :put) do %>
+
+<%= label_tag("Band Name:") %>
+<%= text_field_tag(:name, @band.name) %>
+<%= submit_tag("Save!") %>
+<% end %>
+
+<h2>Add Artist</h2>
+<%= form_tag("/bands/#{@band.id}", :method => :put) do %>
+
+<%= label_tag("Artists:") %>
+<%= collection_select(:artists, :artist_id, @possible_new_artists, :id, :name) %>
+<%= submit_tag("Add Member!") %>
+<% end %>
+
+<h2>Remove Artist</h2>
+<%= form_tag("/bands/#{@band.id}", :method => :put) do %>
+<%= label_tag("Members:") %>
+<%= collection_select(:deleted, :artist_id, @band.artists, :id, :name) %>
+<%= submit_tag("Abandon Member!") %>
+<% end %>
+
+<h3>Band Members</h3>
+  <ul>
+  <% @band.artists.each do |artist_id| %>
+    <li>
+      <%= Artist.find(artist_id).name %>
+    </li>
+  <% end %>
+  </ul>
+<%= link_to "Create Artist", new_artist_path %>

@@ -3,7 +3,7 @@ class Band < ActiveRecord::Base
 
   validates :name, :presence => true, :uniqueness => { :scope => :name }
 
-  has_many :band_artists
+  has_many :band_artists, :foreign_key => :band_id
   has_many :artists, :through => :band_artists
   has_many :recordings
   has_many :albums
