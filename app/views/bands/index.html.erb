@@ -1,0 +1,9 @@
+<h1> Welcome to the glamorous BK Records</h1>
+<h2>Our Bands</h2>
+  <ul>
+  <% @bands.each do |band| %>
+  <li>  <%= link_to band.name, band_path(band) %></li>
+    <% end %>
+  </ul>
+
+<%= link_to "Create A New Band", new_band_path %>

@@ -1,9 +1,10 @@
 class Band < ActiveRecord::Base
-  attr_accessible :name, :artist_id
+  attr_accessible :name
 
-  has_many :artists
+  validates :name, :presence => true, :uniqueness => { :scope => :name }
+
+  has_many :band_artists
+  has_many :artists, :through => :band_artists
   has_many :recordings
   has_many :albums
-  has_many :genres, :through => :albums
-
 end
