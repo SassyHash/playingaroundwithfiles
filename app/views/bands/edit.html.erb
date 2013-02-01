@@ -1,17 +1,18 @@
 <h1>Edit <%= @band.name %></h1>
-<%= form_tag("/bands/#{@band.id}", :method => :put) do %>
+<%= form_for @band do |f| %>
 
-<%= label_tag("Band Name:") %>
-<%= text_field_tag(:band_name, @band.name) %>
-<%= submit_tag("Save!") %>
+<%= f.label :name, "Band Name:" %>
+<%= f.text_field :name %>
+<%= f.submit "Save!" %>
 <% end %>
 
 <h3>Add New Artist</h3>
-<%= form_tag("/bands/#{@band.id}", :method => :put) do %>
+<%= form_for @artist, :url => { :action => "create", :controller => "artists"} do |f| %>
 
-<%= label_tag("Artists:") %>
-<%= text_field_tag(:artist_name) %>
-<%= submit_tag("Add Member!") %>
+<%= f.label :name, "Artists:" %>
+<%= f.hidden_field :band, :value => @band.id %>
+<%= f.text_field :name %>
+<%= f.submit "Add Member!" %>
 <% end %>
 
 <h3>Add Existing Artist</h3>

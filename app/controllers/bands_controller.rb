@@ -22,6 +22,7 @@ class BandsController < ApplicationController
   end
 
   def edit
+    @artist = Artist.new
     @band = Band.find(params[:id])
     if @band.artists.empty?
       @possible_new_artists = Artist.all
@@ -34,15 +35,9 @@ class BandsController < ApplicationController
 
   def update
     b = Band.find(params[:id])
-    b.name = params[:band_name] if params[:band_name]
+    b.name = params[:band][:name]
     b.save
 
-    if params[:artist_name]
-      artist = Artist.new
-      artist.name = params[:artist_name]
-      artist.save
-      b.artists << artist
-    end
     if params[:artists]
       a = Artist.find(params[:artists][:artist_id])
       b.artists << a
@@ -52,7 +47,7 @@ class BandsController < ApplicationController
       b.artists.delete(d)
     end
 
-    redirect_to edit_band_path(b)
+     redirect_to edit_band_path(b)
   end
 
   def destroy
