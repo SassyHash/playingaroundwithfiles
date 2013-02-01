@@ -3,7 +3,7 @@
   <ul>
     <% @band.artists.each do |artist_id| %>
       <li>
-        <%= Artist.find(artist_id).name %>
+        <%= link_to Artist.find(artist_id).name, artist_path(Artist.find(artist_id)) %>
       </li>
     <% end %>
   </ul>
@@ -23,3 +23,4 @@
     <% end %>
   </ul>
 <%= link_to "Edit", edit_band_path(@band) %>
+<%= link_to "Destroy", band_path(@band), :confirm => "Are you sure? You will never hear this band again.", :method => :delete %>

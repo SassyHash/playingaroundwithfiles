@@ -23,13 +23,26 @@ class BandsController < ApplicationController
 
   def edit
     @band = Band.find(params[:id])
-    @possible_new_artists = Artist.all.select! { |artist| !@band.artists.include?(artist) }
+    if @band.artists.empty?
+      @possible_new_artists = Artist.all
+    else
+      @possible_new_artists = Artist.all.select! do |artist|
+        !@band.artists.include?(artist)
+      end
+    end
   end
 
   def update
     b = Band.find(params[:id])
-    b.name = params[:name] if params[:name]
+    b.name = params[:band_name] if params[:band_name]
     b.save
+
+    if params[:artist_name]
+      artist = Artist.new
+      artist.name = params[:artist_name]
+      artist.save
+      b.artists << artist
+    end
     if params[:artists]
       a = Artist.find(params[:artists][:artist_id])
       b.artists << a
@@ -39,10 +52,18 @@ class BandsController < ApplicationController
       b.artists.delete(d)
     end
 
-    redirect_to band_path(b)
+    redirect_to edit_band_path(b)
   end
 
   def destroy
+
+    band = Band.find(params[:id])
+    band.recordings.each { |recording| recording.destroy }
+    band.artists.each { |member| member.destroy }
+    band.albums.each { |album| album.destroy }
+    band.destroy
+
+    redirect_to bands_path
   end
 
 end

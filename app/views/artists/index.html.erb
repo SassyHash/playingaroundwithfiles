@@ -1,0 +1,11 @@
+<h1>Welcome to the Glamorous BK Records</h1>
+<h2>Our Artists</h2>
+  <ul>
+  <% @artists.each do |artist| %>
+  <li>  <%= link_to artist.name, artist_path(artist) %></li>
+    <% end %>
+  </ul>
+
+<%= link_to "Create A New Artist", new_artist_path %>
+<br>
+<%= link_to "Our Bands", bands_path %>

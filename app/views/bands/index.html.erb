@@ -1,4 +1,4 @@
-<h1>Welcome to the glamorous BK Records</h1>
+<h1>Welcome to the Glamorous BK Records</h1>
 <h2>Our Bands</h2>
   <ul>
   <% @bands.each do |band| %>
@@ -6,4 +6,8 @@
     <% end %>
   </ul>
 
+
 <%= link_to "Create A New Band", new_band_path %>
+
+<br>
+<%= link_to "Our Artists", artists_path %>

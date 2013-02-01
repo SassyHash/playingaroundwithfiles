@@ -1,0 +1,25 @@
+<h1><%= @artist.name %></h1>
+<h2>Bands</h2>
+  <ul>
+    <% @artist.bands.each do |band| %>
+    <li>
+      <%= link_to band.name, band_path(band) %>
+    </li>
+    <% end %>
+  </ul>
+
+<h2>Albums</h2>
+  <ul>
+    <% @artist.albums.each do |album| %>
+    <li>
+      <% a = Album.find(album) %>
+      <% b = Band.find(a.band_id) %>
+      <%= link_to b.name, band_path(b) %>,
+      <%= link_to a.name, album_path(a) %>
+    </li>
+    <% end %>
+  </ul>
+
+<h2>Authored Songs</h2>
+
+<h2>Performed Songs</h2>
