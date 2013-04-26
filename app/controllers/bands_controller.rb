@@ -35,7 +35,9 @@ class BandsController < ApplicationController
 
   def update
     b = Band.find(params[:id])
-    b.name = params[:band][:name]
+    if params[:band]
+      b.name = params[:band][:name]
+    end
     b.save
 
     if params[:artists]
